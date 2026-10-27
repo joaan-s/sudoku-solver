@@ -4,6 +4,10 @@ A board will be a 9-list of 9-lists,
 and empty cells are filled with zero's.
 """
 
+"""
+Im having problems with OOP, so i'll do it simpler in main.py
+when everything works there I'll come back here
+"""
 board = [
     [0, 5, 0, 7, 0, 8, 0, 6, 4],
     [0, 0, 0, 4, 2, 0, 0, 0, 0],
@@ -31,15 +35,22 @@ class Board:
                 else:
                     return None
 
-    def boxes(board, row, col):
-        # Returns a 9 list with the box of the corresponding row and col
-        # Numbers of each box
-        # [00, 01, 02]
-        # [10, 11, 12]
-        # [20, 21, 22]
-        box_number_one = ((col+1) // 3)*3
-        box_number_two = (row+1) // 3
-        # Continue here
+
+    def boxes(board):
+        boxes = []
+        for i in range(9):
+            box = []
+            q = i//3
+            r = i%3
+            for j in range(3):
+                for k in range(3):
+                    box.append(board[q+j][r+k])
+            boxes.append(box)
+        return boxes
+
+    def box(board, row, col):
+        boxes = board.boxes
+        return boxes[row//3+col%3]
 
 
     def valid_num(board, row, col, num):
@@ -57,6 +68,11 @@ class Board:
                 return False
         return True
 
+    """
     def choose_number(board, row, col):
         for num in range(1, 10):
             if valid_num(board, row, col, num):
+    """
+
+board = Board(board)
+print(board.boxes())
